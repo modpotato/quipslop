@@ -47,6 +47,11 @@ const server = Bun.serve({
   },
   fetch(req, server) {
     const url = new URL(req.url);
+    if (url.pathname.startsWith("/assets/")) {
+      const path = `./public${url.pathname}`;
+      const file = Bun.file(path);
+      return new Response(file);
+    }
     if (url.pathname === "/ws") {
       const upgraded = server.upgrade(req);
       if (!upgraded) {
