@@ -381,8 +381,11 @@ export async function runGame(
     round.scoreA = votesA * 100;
     round.scoreB = votesB * 100;
     round.phase = "done";
-    state.scores[contA.name] = (state.scores[contA.name] || 0) + round.scoreA;
-    state.scores[contB.name] = (state.scores[contB.name] || 0) + round.scoreB;
+    if (votesA > votesB) {
+      state.scores[contA.name] = (state.scores[contA.name] || 0) + 1;
+    } else if (votesB > votesA) {
+      state.scores[contB.name] = (state.scores[contB.name] || 0) + 1;
+    }
     rerender();
 
     await new Promise((r) => setTimeout(r, 2000));

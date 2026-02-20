@@ -11,7 +11,8 @@ import {
 // ── Game state ──────────────────────────────────────────────────────────────
 
 const runsArg = process.argv.find((a) => a.startsWith("runs="));
-const runs = runsArg ? parseInt(runsArg.split("=")[1] ?? "5", 10) : 5;
+const runsStr = runsArg ? runsArg.split("=")[1] : "infinite";
+const runs = runsStr === "infinite" ? Infinity : parseInt(runsStr || "infinite", 10);
 
 if (!process.env.OPENROUTER_API_KEY) {
   console.error("Error: Set OPENROUTER_API_KEY environment variable");

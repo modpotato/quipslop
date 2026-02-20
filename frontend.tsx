@@ -213,7 +213,7 @@ function Arena({ round, total }: { round: RoundState; total: number }) {
     <div className="arena">
       <div className="arena__header-row">
         <div className="arena__round-badge">
-          ROUND {round.num} <span className="arena__round-of">/ {total}</span>
+          ROUND {round.num} {total !== null && <span className="arena__round-of">/ {total}</span>}
         </div>
         <div className="arena__phase">{phaseLabel}</div>
       </div>
@@ -334,7 +334,7 @@ function Sidebar({ scores, activeRound, completed }: { scores: Record<string, nu
                     <div className="standing__bar">
                       <div className="standing__bar-fill" style={{ width: `${pct}%`, background: color }} />
                     </div>
-                    <span className="standing__score">{score}</span>
+                    <span className="standing__score">{score} {score === 1 ? 'win' : 'wins'}</span>
                   </div>
                 </div>
               </div>
