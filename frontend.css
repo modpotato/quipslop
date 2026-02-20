@@ -1,0 +1,262 @@
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text-dim: #7d8590;
+  --accent: #58a6ff;
+
+  --cyan: #56d4dd;
+  --green: #3fb950;
+  --magenta: #db61a2;
+  --green-bright: #7ee787;
+  --cyan-bright: #79dafa;
+  --yellow: #e3b341;
+  --blue: #58a6ff;
+  --red: #f85149;
+  --white: #e6edf3;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "SF Mono", "Fira Code", "JetBrains Mono", "Cascadia Code", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 24px;
+  min-height: 100vh;
+}
+
+#root {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ── Header ─────────────────────────────────────────────────────── */
+
+.header {
+  margin-bottom: 24px;
+}
+
+.header-title {
+  display: inline-block;
+  background: #8b5cf6;
+  color: #000;
+  font-weight: 700;
+  font-size: 18px;
+  padding: 4px 12px;
+  letter-spacing: 1px;
+}
+
+.header-sub {
+  color: var(--text-dim);
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+/* ── Round ──────────────────────────────────────────────────────── */
+
+.round {
+  margin-bottom: 24px;
+}
+
+.round-header {
+  display: inline-block;
+  background: #1f6feb;
+  color: #fff;
+  font-weight: 700;
+  padding: 2px 10px;
+  font-size: 13px;
+}
+
+.divider {
+  color: var(--border);
+  margin: 4px 0;
+  user-select: none;
+}
+
+/* ── Phase badges ──────────────────────────────────────────────── */
+
+.badge {
+  display: inline-block;
+  font-weight: 700;
+  padding: 1px 8px;
+  font-size: 12px;
+  margin-right: 8px;
+}
+
+.badge-prompt { background: #a855f7; color: #000; }
+.badge-answers { background: #22d3ee; color: #000; }
+.badge-votes { background: #eab308; color: #000; }
+.badge-scores { background: #f43f5e; color: #fff; }
+
+/* ── Phase sections ────────────────────────────────────────────── */
+
+.phase {
+  margin-top: 12px;
+}
+
+.phase-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 2px 0 2px 16px;
+}
+
+.prompt-text {
+  color: var(--yellow);
+  font-weight: 700;
+  padding: 4px 0 4px 16px;
+  font-size: 15px;
+}
+
+.dim { color: var(--text-dim); }
+.bold { font-weight: 700; }
+.error { color: var(--red); }
+
+.answer-text { font-weight: 700; }
+
+.vote-arrow { color: var(--text-dim); }
+
+/* ── Result ────────────────────────────────────────────────────── */
+
+.round-result {
+  margin-top: 8px;
+  padding: 8px 16px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.result-winner { font-weight: 700; }
+.result-detail { color: var(--text-dim); font-size: 13px; padding-left: 16px; }
+
+/* ── Timer ─────────────────────────────────────────────────────── */
+
+.timer {
+  color: var(--text-dim);
+  font-size: 12px;
+}
+
+/* ── Scoreboard ────────────────────────────────────────────────── */
+
+.scoreboard {
+  margin-top: 24px;
+}
+
+.scoreboard-title {
+  display: inline-block;
+  background: #a855f7;
+  color: #000;
+  font-weight: 700;
+  padding: 2px 10px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.score-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 3px 0 3px 16px;
+}
+
+.score-rank {
+  color: var(--text-dim);
+  min-width: 24px;
+  text-align: right;
+}
+
+.score-name {
+  font-weight: 700;
+  min-width: 160px;
+}
+
+.score-bar-track {
+  width: 200px;
+  height: 14px;
+  background: var(--surface);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.score-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.score-value {
+  font-weight: 700;
+  min-width: 40px;
+}
+
+.score-medal { font-size: 16px; }
+
+.winner-banner {
+  margin-top: 12px;
+  padding-left: 16px;
+  font-size: 16px;
+}
+
+/* ── Model colors ──────────────────────────────────────────────── */
+
+.model-gemini-3-1-pro { color: var(--cyan); }
+.model-kimi-k2 { color: var(--green); }
+.model-kimi-k2-5 { color: var(--magenta); }
+.model-deepseek-3-2 { color: var(--green-bright); }
+.model-glm-5 { color: var(--cyan-bright); }
+.model-gpt-5-2 { color: var(--yellow); }
+.model-opus-4-6 { color: var(--blue); }
+.model-sonnet-4-6 { color: var(--red); }
+.model-grok-4-1 { color: var(--white); }
+
+/* Bar fill colors */
+.bar-gemini-3-1-pro { background: var(--cyan); }
+.bar-kimi-k2 { background: var(--green); }
+.bar-kimi-k2-5 { background: var(--magenta); }
+.bar-deepseek-3-2 { background: var(--green-bright); }
+.bar-glm-5 { background: var(--cyan-bright); }
+.bar-gpt-5-2 { background: var(--yellow); }
+.bar-opus-4-6 { background: var(--blue); }
+.bar-sonnet-4-6 { background: var(--red); }
+.bar-grok-4-1 { background: var(--white); }
+
+/* ── Connecting state ──────────────────────────────────────────── */
+
+.connecting {
+  color: var(--text-dim);
+  padding: 40px 0;
+  text-align: center;
+}
+
+.connecting-dot {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ── Spinner ───────────────────────────────────────────────────── */
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  display: inline-block;
+  color: var(--text-dim);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
