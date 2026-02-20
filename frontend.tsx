@@ -415,7 +415,7 @@ function App() {
             }
 
             if (!state.active && !state.done && state.completed.length > 0) {
-              return <Arena round={lastCompleted} total={totalRounds} />;
+              return <Arena round={lastCompleted!} total={totalRounds} />;
             }
 
             if (!state.active && !state.done && state.completed.length === 0) {

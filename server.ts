@@ -26,6 +26,7 @@ const gameState: GameState = {
   active: null,
   scores: Object.fromEntries(MODELS.map((m) => [m.name, 0])),
   done: false,
+  isPaused: false,
 };
 
 // ── WebSocket clients ───────────────────────────────────────────────────────
@@ -55,6 +56,24 @@ const server = Bun.serve({
       const path = `./public${url.pathname}`;
       const file = Bun.file(path);
       return new Response(file);
+    }
+    if (url.pathname === "/api/pause") {
+      const secret = url.searchParams.get("secret");
+      if (process.env.ADMIN_SECRET && secret === process.env.ADMIN_SECRET) {
+        gameState.isPaused = true;
+        broadcast();
+        return new Response("Paused", { status: 200 });
+      }
+      return new Response("Unauthorized", { status: 401 });
+    }
+    if (url.pathname === "/api/resume") {
+      const secret = url.searchParams.get("secret");
+      if (process.env.ADMIN_SECRET && secret === process.env.ADMIN_SECRET) {
+        gameState.isPaused = false;
+        broadcast();
+        return new Response("Resumed", { status: 200 });
+      }
+      return new Response("Unauthorized", { status: 401 });
     }
     if (url.pathname === "/api/history") {
       const page = parseInt(url.searchParams.get("page") || "1", 10);

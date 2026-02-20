@@ -71,6 +71,7 @@ export type GameState = {
   active: RoundState | null;
   scores: Record<string, number>;
   done: boolean;
+  isPaused: boolean;
 };
 
 // ── OpenRouter ──────────────────────────────────────────────────────────────
@@ -261,6 +262,10 @@ export async function runGame(
   rerender: () => void,
 ) {
   for (let r = 1; r <= runs; r++) {
+    while (state.isPaused) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+
     const shuffled = shuffle([...MODELS]);
     const prompter = shuffled[0]!;
     const contA = shuffled[1]!;

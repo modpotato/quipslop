@@ -223,6 +223,7 @@ function Game({ runs }: { runs: number }) {
     active: null,
     scores: Object.fromEntries(MODELS.map((m) => [m.name, 0])),
     done: false,
+    isPaused: false,
   });
   const [, setTick] = useState(0);
   const rerender = useCallback(() => setTick((t) => t + 1), []);

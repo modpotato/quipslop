@@ -2,7 +2,7 @@ import { appendFileSync } from "node:fs";
 import { join } from "node:path";
 import {
   MODELS,
-  Model,
+  type Model,
   shuffle,
   withRetry,
   callGeneratePrompt,
@@ -141,7 +141,7 @@ async function worker() {
       } else {
         completedRounds++;
         if (result.winner) {
-          scores[result.winner.name]++;
+          scores[result.winner.name] = (scores[result.winner.name] ?? 0) + 1;
         }
         
         let roundLog = `\n=== ROUND ${roundNum} ===\n`;
