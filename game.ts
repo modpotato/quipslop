@@ -260,13 +260,21 @@ export async function runGame(
     startRound = lastCompletedRound.num + 1;
   }
   
-  const endRound = startRound + runs - 1;
+  let endRound = startRound + runs - 1;
   
   for (let r = startRound; r <= endRound; r++) {
     while (state.isPaused) {
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }
     const roundGeneration = state.generation;
+
+    // Reset round counter if generation changed (e.g. admin reset)
+    const latest = state.completed.at(-1);
+    const expectedR = latest ? latest.num + 1 : 1;
+    if (r !== expectedR) {
+      r = expectedR;
+      endRound = r + runs - 1;
+    }
 
     const shuffled = shuffle([...MODELS]);
     const prompter = shuffled[0]!;
