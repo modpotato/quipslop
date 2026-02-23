@@ -218,7 +218,7 @@ function setHistoryCache(key: string, body: string, expiresAt: number) {
 // ── WebSocket clients ───────────────────────────────────────────────────────
 
 const clients = new Set<ServerWebSocket<WsData>>();
-const viewerVoters = new Set<ServerWebSocket<WsData>>();
+const viewerVoters = new Map<ServerWebSocket<WsData>, "A" | "B">();
 let viewerVoteBroadcastTimer: ReturnType<typeof setTimeout> | null = null;
 
 function scheduleViewerVoteBroadcast() {
@@ -611,14 +611,20 @@ const server = Bun.serve<WsData>({
         const round = gameState.active;
         if (!round || round.phase !== "voting") return;
         if (!round.viewerVotingEndsAt || Date.now() > round.viewerVotingEndsAt) return;
-        if (viewerVoters.has(ws)) return;
         if (msg.votedFor !== "A" && msg.votedFor !== "B") return;
 
-        viewerVoters.add(ws);
+        const previousVote = viewerVoters.get(ws);
+        if (previousVote === msg.votedFor) return; // same vote, ignore
+
+        // Undo previous vote if changing
+        if (previousVote === "A") round.viewerVotesA = Math.max(0, (round.viewerVotesA ?? 0) - 1);
+        else if (previousVote === "B") round.viewerVotesB = Math.max(0, (round.viewerVotesB ?? 0) - 1);
+
+        viewerVoters.set(ws, msg.votedFor);
         if (msg.votedFor === "A") round.viewerVotesA = (round.viewerVotesA ?? 0) + 1;
         else round.viewerVotesB = (round.viewerVotesB ?? 0) + 1;
 
-        ws.send(JSON.stringify({ type: "votedAck" }));
+        ws.send(JSON.stringify({ type: "votedAck", votedFor: msg.votedFor }));
         scheduleViewerVoteBroadcast();
       } catch {}
     },
