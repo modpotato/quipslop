@@ -1,3 +1,3 @@
 # Quipslop
 
-Built live on [twitch.tv/quipslop](https://twitch.tv/quipslop).
+Streamed live on [twitch.tv/quipslop](https://twitch.tv/quipslop).
